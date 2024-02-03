@@ -165,7 +165,7 @@ class VibratoHelper:
 
     def __init__(self):
         self.change_dict(
-            str(os.path.join(str(Path(os.path.dirname(__file__)).resolve().parent), 'dict/default/system.dic.zst')))
+            str(os.path.join(str(Path(os.path.dirname(__file__)).resolve()), 'dict/default/system.dic.zst')))
 
     # 辞書を変更する。
     def change_dict(self, dict_path: str):
