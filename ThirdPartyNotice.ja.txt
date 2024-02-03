@@ -1,0 +1,59 @@
+第三者ソフトウェア使用許諾通知
+このソフトウェアには、第三者ソフトウェアが含まれます。
+
+-----------注釈-----------
+もし、この通知にライセンス表示が不足している箇所がありましたら、以下に示すようにGithub Issuesに報告してください。
+タイトル: 「パッケージの名前」 のライセンス表示が不足しています。
+内容: どこで使われているかなどの補足情報など。（任意）
+-------------------------
+
+以下は、本ソフトウェアに使用されている第三者ソフトウェアとそのライセンスの一覧です。
+=========================
+    Python Libraries
+=========================
+-------------------------
+1. vibrato
+コピーライト  : Copyright (c) 2022 legalforce-research
+ホームページ  :
+    https://docs.rs/vibrato/latest/vibrato/
+リポジトリ  :
+    https://github.com/daac-tools/vibrato
+pythonラッパー  :
+    https://github.com/daac-tools/python-vibrato
+ライセンス   :
+    MITライセンス https://opensource.org/license/mit/
+-------------------------
+-------------------------
+2. zstandard
+コピーライト: Copyright (c) 2016, Gregory Szorc
+リポジトリ:
+    https://github.com/indygreg/python-zstandard
+ライセンス  : 3項型BSD
+    Copyright (c) 2016, Gregory Szorc
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without modification,
+    are permitted provided that the following conditions are met:
+
+    1. Redistributions of source code must retain the above copyright notice, this
+    list of conditions and the following disclaimer.
+
+    2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+    3. Neither the name of the copyright holder nor the names of its contributors
+    may be used to endorse or promote products derived from this software without
+    specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+    DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+    ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+    (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+    LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+    ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-------------------------
