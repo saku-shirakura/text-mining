@@ -258,7 +258,6 @@ class TextMiner:
                 else:
                     blacklist[token_set] = True
         sorted_jaccard_scores = sorted(weighted_all_jaccard_scores.items(), reverse=True, key=lambda x: x[1])
-        print(sorted_jaccard_scores)
         result = []
         for i in range(0, max_elements if len(sorted_jaccard_scores) >= max_elements else len(sorted_jaccard_scores)):
             result.append(sorted_jaccard_scores[i][0])
