@@ -131,33 +131,33 @@ class Sequences:
         return count_tokens_freq, count_a_and_b_freq
 
     # ある2つのトークンについてのジャッカード係数を算出
-    def calc_jaccard(self, token_set: set) -> float:
+    def calc_jaccard(self, token_set: set) -> tuple[float, int]:
         count_tokens_freq, count_a_and_b_freq = self.__count_tokens_freq(token_set)
         try:
             # n(a & b) / n(a | b) = n(a & b) / (n(a) + n(b) - n(a & b))
-            return count_a_and_b_freq / (sum(count_tokens_freq.values()) - count_a_and_b_freq)
+            return count_a_and_b_freq / (sum(count_tokens_freq.values()) - count_a_and_b_freq), count_a_and_b_freq
         except ZeroDivisionError:
-            return 1.0
+            return 1.0, 0
 
     # ある2つのトークンについてのダイス係数を算出
-    def calc_dice(self, token_set: set) -> float:
+    def calc_dice(self, token_set: set) -> tuple[float, int]:
         count_tokens_freq, count_a_and_b_freq = self.__count_tokens_freq(token_set)
         try:
             # (2 * n(a & b)) / (n(a) + n(b)) = n(a & b) / (n(a) + n(b))
-            return (2 * count_a_and_b_freq) / sum(count_tokens_freq.values())
+            return (2 * count_a_and_b_freq) / sum(count_tokens_freq.values()), count_a_and_b_freq
         except ZeroDivisionError:
-            return 1.0
+            return 1.0, 0
 
     # ある2つのトークンについてのシンプソン係数を算出
-    def calc_simpson(self, token_set: set) -> float:
+    def calc_simpson(self, token_set: set) -> tuple[float, int]:
         count_tokens_freq, count_a_and_b_freq = self.__count_tokens_freq(token_set)
         try:
             # n(a & b) / min(n(a), n(b))
-            return count_a_and_b_freq / min(count_tokens_freq.values())
+            return count_a_and_b_freq / min(count_tokens_freq.values()), count_a_and_b_freq
         except ZeroDivisionError:
             if sum(count_tokens_freq.values()) == 0:
-                return 1.0
-            return 0.0
+                return 1.0, 0
+            return 0.0, 0
 
 
 class VibratoHelper:
@@ -239,22 +239,23 @@ class TextMiner:
             self.sequence.add_sequence(i_seq)
 
     # thresholdを超えるのすべての組み合わせについてのジャッカード係数を列挙する。
-    def calculate_all_jaccard_score(self, threshold=0.0):
-        all_jaccard_scores = dict()
+    def calculate_all_jaccard_score(self, threshold=0.0, max_elements=20):
+        weighted_all_jaccard_scores = dict()
         blacklist = dict()
         # 文章をイテレート
         for sequence in self.sequence.sequence_set:
             # 現在の文章から2つ選択したすべての組み合わせをイテレート。
             for token_set in itertools.combinations(sequence, 2):
                 # すでに計算済みであれば、計算しない。
-                if all_jaccard_scores.get(token_set) is not None:
+                if weighted_all_jaccard_scores.get(token_set) is not None:
                     continue
                 if blacklist.get(token_set) is not None:
                     continue
                 # ジャッカード係数を計算し、それを登録する。
-                jaccard_score = self.sequence.calc_jaccard(token_set)
+                jaccard_score, count_a_and_b_freq = self.sequence.calc_jaccard(token_set)
                 if jaccard_score > threshold:
-                    all_jaccard_scores[token_set] = jaccard_score
+                    weighted_all_jaccard_scores[token_set] = jaccard_score * count_a_and_b_freq
                 else:
                     blacklist[token_set] = True
-        return all_jaccard_scores
+        sorted_jaccard_scores = sorted(weighted_all_jaccard_scores.items(), reverse=True, key=lambda x: x[1])
+        return sorted_jaccard_scores[:max_elements]
